@@ -3,11 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-
+require("@rails/ujs").start();
+require("turbolinks").start();
+require("@rails/activestorage").start();
+require("channels");
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -15,3 +14,19 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import bulmaQuickview from "bulma-quickview/src/js";
+
+document.addEventListener("turbolinks:load", function() {
+  let quickviews = bulmaQuickview.attach();
+
+  const fileInput = document.querySelectorAll("input[type=file].file-input");
+  fileInput.forEach(input => {
+    input.onchange = () => {
+      if (input.files.length > 0) {
+        const fileName = input.parentNode.querySelector(".file-name");
+        fileName.textContent = input.files[0].name;
+      }
+    };
+  });
+});
